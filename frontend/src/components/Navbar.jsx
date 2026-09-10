@@ -33,8 +33,8 @@ export default function Navbar({
             <Activity className="w-5 h-5 text-dark-900 stroke-[2.5]" />
           </div>
           <div>
-            <h1 className="font-extrabold text-base tracking-wide glowing-text">PREDICTIVE MAINTENANCE SaaS</h1>
-            <p className="text-[10px] text-slate-400 font-mono hidden sm:block">Agentic AI Plant Operating System v2.0</p>
+            <h1 className="font-extrabold text-sm md:text-base tracking-wide glowing-text">AI-AGENT PREDICTIVE MAINTENANCE SYSTEM</h1>
+            <p className="text-[10px] text-cyan-400 font-mono hidden sm:block">Intelligent Predictive Maintenance Using Machine Sound Analysis v2.0</p>
           </div>
         </div>
       </div>

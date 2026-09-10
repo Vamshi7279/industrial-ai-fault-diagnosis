@@ -11,7 +11,7 @@ if os.path.exists(env_path):
                 os.environ[key.strip()] = val.strip().strip('"').strip("'")
 
 class Settings:
-    PROJECT_NAME: str = "AI Industrial Predictive Maintenance SaaS"
+    PROJECT_NAME: str = "AI-Agent Based Intelligent Predictive Maintenance System Using Machine Sound Analysis"
     VERSION: str = "2.0.0"
     
     # Environment & Security
