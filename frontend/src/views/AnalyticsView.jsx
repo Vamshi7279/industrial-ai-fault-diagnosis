@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { getApiBase } from '../apiConfig';
 import { 
   BarChart3, 
   TrendingUp, 
@@ -28,7 +29,7 @@ export default function AnalyticsView() {
   useEffect(() => {
     const fetchAnalytics = async () => {
       try {
-        const res = await fetch('/api/reports/analytics');
+        const res = await fetch(`${getApiBase()}/api/reports/analytics`);
         if (res.ok) setAnalyticsData(await res.json());
       } catch (e) {
         console.error("Fetch analytics error:", e);

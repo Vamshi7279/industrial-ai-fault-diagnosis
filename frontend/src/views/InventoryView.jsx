@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { getApiBase } from '../apiConfig';
 import { 
   Package, 
   CheckCircle2, 
@@ -17,7 +18,7 @@ export default function InventoryView() {
   useEffect(() => {
     const fetchParts = async () => {
       try {
-        const res = await fetch('/api/inventory/parts');
+        const res = await fetch(`${getApiBase()}/api/inventory/parts`);
         if (res.ok) setParts(await res.json());
       } catch (e) {
         console.error("Fetch parts error:", e);

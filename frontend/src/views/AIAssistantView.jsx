@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { getApiBase } from '../apiConfig';
 import { 
   Bot, 
   Send, 
@@ -35,7 +36,7 @@ export default function AIAssistantView({ selectedMachine }) {
     setLoading(true);
 
     try {
-      const res = await fetch('/api/ai/chat', {
+      const res = await fetch(`${getApiBase()}/api/ai/chat`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({

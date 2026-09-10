@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Send, CheckCircle2, AlertTriangle, Clock, RefreshCw, Filter } from 'lucide-react';
+import { getApiBase } from '../apiConfig';
 
 export default function NotificationCenterView() {
   const [notifications, setNotifications] = useState([]);
@@ -9,7 +10,7 @@ export default function NotificationCenterView() {
   const fetchNotifications = async () => {
     setLoading(true);
     try {
-      const res = await fetch('/api/v2/notifications');
+      const res = await fetch(`${getApiBase()}/api/v2/notifications`);
       if (res.ok) {
         const data = await res.json();
         setNotifications(data);

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Shield, RefreshCw, FileText, UserCheck, Calendar } from 'lucide-react';
+import { getApiBase } from '../apiConfig';
 
 export default function AuditLogView() {
   const [logs, setLogs] = useState([]);
@@ -8,7 +9,7 @@ export default function AuditLogView() {
   const fetchAuditLogs = async () => {
     setLoading(true);
     try {
-      const res = await fetch('/api/v2/audit/logs');
+      const res = await fetch(`${getApiBase()}/api/v2/audit/logs`);
       if (res.ok) {
         const data = await res.json();
         setLogs(data);

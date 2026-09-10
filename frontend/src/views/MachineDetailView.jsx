@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { getApiBase } from '../apiConfig';
 import { 
   Cpu, 
   MapPin, 
@@ -20,13 +21,13 @@ export default function MachineDetailView({ selectedMachineId, onSelectMachine }
     const fetchData = async () => {
       setLoading(true);
       try {
-        const res = await fetch(`/api/machines/${selectedMachineId}`);
+        const res = await fetch(`${getApiBase()}/api/machines/${selectedMachineId}`);
         if (res.ok) {
           const data = await res.json();
           setMachineData(data);
         }
         
-        const analyzeRes = await fetch(`/api/machines/${selectedMachineId}/analyze`);
+        const analyzeRes = await fetch(`${getApiBase()}/api/machines/${selectedMachineId}/analyze`);
         if (analyzeRes.ok) {
           const aData = await analyzeRes.json();
           setAnalysisData(aData);

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Navbar from './components/Navbar';
 import Sidebar from './components/Sidebar';
+import { getApiBase, getWsUrl } from './apiConfig';
 
 import DashboardView from './views/DashboardView';
 import LiveMonitoringView from './views/LiveMonitoringView';
@@ -36,7 +37,7 @@ export default function App() {
   // Fetch initial dashboard stats
   const fetchDashboardStats = async () => {
     try {
-      const res = await fetch('/api/dashboard/stats');
+      const res = await fetch(`${getApiBase()}/api/dashboard/stats`);
       if (res.ok) {
         const data = await res.json();
         setDashboardStats(data);
@@ -59,9 +60,7 @@ export default function App() {
     let isSubscribed = true;
 
     const connectWS = () => {
-      const wsProtocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
-      const wsHost = window.location.host || '127.0.0.1:8000';
-      const wsUrl = `${wsProtocol}//${wsHost}/ws/telemetry`;
+      const wsUrl = getWsUrl();
 
       try {
         ws = new WebSocket(wsUrl);

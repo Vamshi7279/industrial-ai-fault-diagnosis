@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { getApiBase } from '../apiConfig';
 import { 
   Radio, 
   Wifi, 
@@ -24,7 +25,7 @@ export default function LiveMonitoringView({ selectedMachine, onSelectMachine, w
   useEffect(() => {
     const fetchClips = async () => {
       try {
-        const res = await fetch(`/api/machines/${selectedMachine}/clips`);
+        const res = await fetch(`${getApiBase()}/api/machines/${selectedMachine}/clips`);
         if (res.ok) {
           const clips = await res.json();
           setAvailableClips(clips);
@@ -40,7 +41,7 @@ export default function LiveMonitoringView({ selectedMachine, onSelectMachine, w
   const fetchAnalysis = async (clipParam = selectedClip) => {
     try {
       const param = clipParam === 'auto' ? 'random' : clipParam;
-      const res = await fetch(`/api/machines/${selectedMachine}/analyze?file_name=${encodeURIComponent(param)}`);
+      const res = await fetch(`${getApiBase()}/api/machines/${selectedMachine}/analyze?file_name=${encodeURIComponent(param)}`);
       if (res.ok) {
         const data = await res.json();
         setTelemetryState(data);

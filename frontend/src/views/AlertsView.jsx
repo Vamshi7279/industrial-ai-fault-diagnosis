@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { getApiBase } from '../apiConfig';
 import { 
   AlertTriangle, 
   CheckCircle2, 
@@ -16,7 +17,7 @@ export default function AlertsView() {
 
   const fetchAlerts = async () => {
     try {
-      const res = await fetch('/api/alerts');
+      const res = await fetch(`${getApiBase()}/api/alerts`);
       if (res.ok) {
         const data = await res.json();
         setAlerts(data);
@@ -34,7 +35,7 @@ export default function AlertsView() {
 
   const handleAcknowledge = async (alertId) => {
     try {
-      const res = await fetch(`/api/alerts/${alertId}/acknowledge`, { method: 'POST' });
+      const res = await fetch(`${getApiBase()}/api/alerts/${alertId}/acknowledge`, { method: 'POST' });
       if (res.ok) {
         fetchAlerts();
         if (selectedAlert?.id === alertId) {

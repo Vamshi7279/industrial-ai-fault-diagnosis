@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { getApiBase } from '../apiConfig';
 import { 
   Building2, 
   Mail, 
@@ -19,7 +20,7 @@ export default function ManufacturerView() {
   useEffect(() => {
     const fetchMfrs = async () => {
       try {
-        const res = await fetch('/api/manufacturers');
+        const res = await fetch(`${getApiBase()}/api/manufacturers`);
         if (res.ok) setManufacturers(await res.json());
       } catch (e) {
         console.error("Fetch mfrs error:", e);
@@ -30,7 +31,7 @@ export default function ManufacturerView() {
 
   const handleGenerateRfp = async () => {
     try {
-      const res = await fetch('/api/manufacturers/service-request', {
+      const res = await fetch(`${getApiBase()}/api/manufacturers/service-request`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({

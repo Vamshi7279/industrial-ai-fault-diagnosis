@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { getApiBase } from '../apiConfig';
 import { 
   Wrench, 
   CheckCircle2, 
@@ -19,8 +20,8 @@ export default function MaintenanceView() {
   const fetchData = async () => {
     try {
       const [tRes, techRes] = await Promise.all([
-        fetch('/api/maintenance/tickets'),
-        fetch('/api/technicians')
+        fetch(`${getApiBase()}/api/maintenance/tickets`),
+        fetch(`${getApiBase()}/api/technicians`)
       ]);
       if (tRes.ok) setTickets(await tRes.json());
       if (techRes.ok) setTechnicians(await techRes.json());
@@ -38,7 +39,7 @@ export default function MaintenanceView() {
   const handleVerifySubmit = async () => {
     if (!selectedTicket) return;
     try {
-      const res = await fetch('/api/maintenance/verify', {
+      const res = await fetch(`${getApiBase()}/api/maintenance/verify`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
