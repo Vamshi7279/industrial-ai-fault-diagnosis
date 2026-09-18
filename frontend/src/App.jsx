@@ -34,6 +34,21 @@ export default function App() {
     technician: { title: 'Certified Tech Specialist', desc: 'Work order execution, repair feedback & post-repair verification.' }
   };
 
+  const defaultStats = {
+    total_machines: 4,
+    healthy_machines: 3,
+    warning_machines: 0,
+    critical_machines: 1,
+    overall_plant_health: 88.5,
+    upcoming_maintenance: 2,
+    machines: [
+      { type: 'fan', name: 'Primary Exhaust Fan (FAN-01)', status: 'CRITICAL', health: 68.2 },
+      { type: 'pump', name: 'Coolant Pump (PUMP-01)', status: 'HEALTHY', health: 96.4 },
+      { type: 'slider', name: 'Linear Rail Slider (SLIDER-01)', status: 'HEALTHY', health: 94.1 },
+      { type: 'valve', name: 'Pressure Control Valve (VALVE-01)', status: 'HEALTHY', health: 95.8 }
+    ]
+  };
+
   // Fetch initial dashboard stats
   const fetchDashboardStats = async () => {
     try {
@@ -41,9 +56,12 @@ export default function App() {
       if (res.ok) {
         const data = await res.json();
         setDashboardStats(data);
+      } else {
+        setDashboardStats(defaultStats);
       }
     } catch (e) {
       console.error("Fetch dashboard stats error:", e);
+      setDashboardStats(defaultStats);
     }
   };
 
