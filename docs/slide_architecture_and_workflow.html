@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>System Architecture & System Workflow - AI-Agent Predictive Maintenance</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    }
+    body {
+      background-color: #f1f5f9;
+      padding: 24px;
+      color: #0f172a;
+      width: 1920px;
+      height: 960px;
+    }
+    .slide-container {
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 20px;
+      height: 100%;
+    }
+    
+    /* Card Styles */
+    .card {
+      background: #ffffff;
+      border-radius: 12px;
+      border: 1px solid #cbd5e1;
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.08);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+    .card-header {
+      background-color: #1e3a8a;
+      color: #ffffff;
+      text-align: center;
+      padding: 14px 20px;
+    }
+    .card-header h2 {
+      font-size: 24px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+    }
+    .card-header p {
+      font-size: 13px;
+      color: #93c5fd;
+      margin-top: 4px;
+      font-weight: 500;
+    }
+
+    /* Left Card: System Architecture */
+    .arch-body {
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+      justify-content: space-between;
+      gap: 12px;
+    }
+    .arch-columns {
+      display: grid;
+      grid-template-columns: 0.9fr 1.1fr 1fr 1.1fr 1fr;
+      gap: 10px;
+      flex: 1;
+      position: relative;
+    }
+    .arch-col {
+      border: 1.5px dashed #94a3b8;
+      border-radius: 8px;
+      background-color: #f8fafc;
+      padding: 8px 6px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .col-title {
+      font-size: 12px;
+      font-weight: 700;
+      color: #0f172a;
+      text-align: center;
+      margin-bottom: 8px;
+      height: 28px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .box-group {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      flex: 1;
+      justify-content: center;
+    }
+    .arch-box {
+      background: #ffffff;
+      border: 1px solid #94a3b8;
+      border-radius: 6px;
+      padding: 6px 4px;
+      text-align: center;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    }
+    .arch-box-title {
+      font-size: 11px;
+      font-weight: 700;
+      color: #1e293b;
+    }
+    .arch-box-desc {
+      font-size: 9.5px;
+      color: #64748b;
+      margin-top: 2px;
+    }
+
+    /* Connection Arrows between columns */
+    .arrow-right {
+      position: absolute;
+      font-size: 14px;
+      color: #64748b;
+      font-weight: bold;
+    }
+
+    /* Storage Layer Bottom Box */
+    .storage-layer {
+      border: 1.5px dashed #94a3b8;
+      border-radius: 8px;
+      background-color: #f8fafc;
+      padding: 10px 14px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .storage-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: #0f172a;
+      margin-bottom: 8px;
+    }
+    .storage-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+      width: 100%;
+    }
+    .storage-box {
+      background: #ffffff;
+      border: 1px solid #94a3b8;
+      border-radius: 6px;
+      padding: 8px 6px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .cylinder-icon {
+      width: 24px;
+      height: 28px;
+      background: #38bdf8;
+      border: 1.5px solid #0284c7;
+      border-radius: 12px / 6px;
+      position: relative;
+    }
+    .cylinder-icon::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 6px;
+      border: 1.5px solid #0284c7;
+      border-radius: 50%;
+      background: #bae6fd;
+    }
+    .storage-text {
+      display: flex;
+      flex-direction: column;
+    }
+    .storage-box-title {
+      font-size: 10.5px;
+      font-weight: 700;
+      color: #0f172a;
+    }
+    .storage-box-desc {
+      font-size: 9px;
+      color: #64748b;
+    }
+
+    /* Right Card: System Workflow */
+    .workflow-body {
+      padding: 14px 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
+      flex: 1;
+      justify-content: space-between;
+    }
+    .step-item {
+      display: flex;
+      align-items: stretch;
+      gap: 10px;
+    }
+    .step-num {
+      width: 32px;
+      height: 32px;
+      background-color: #334155;
+      color: #ffffff;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 15px;
+      font-weight: 800;
+      flex-shrink: 0;
+      margin-top: 4px;
+    }
+    .step-content {
+      background: #f8fafc;
+      border: 1px solid #cbd5e1;
+      border-radius: 8px;
+      padding: 8px 12px;
+      flex: 1;
+    }
+    .step-header {
+      font-size: 13px;
+      font-weight: 700;
+      color: #0f172a;
+      margin-bottom: 3px;
+    }
+    .step-bullets {
+      list-style-type: disc;
+      padding-left: 16px;
+    }
+    .step-bullets li {
+      font-size: 10.5px;
+      color: #334155;
+      line-height: 1.35;
+    }
+    .step-arrow {
+      text-align: center;
+      color: #64748b;
+      font-size: 10px;
+      margin-top: -4px;
+      margin-bottom: -4px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="slide-container">
+    
+    <!-- LEFT CARD: SYSTEM ARCHITECTURE -->
+    <div class="card">
+      <div class="card-header">
+        <h2>System Architecture</h2>
+        <p>AI-Agent Based Intelligent Predictive Maintenance System Using Machine Sound Analysis</p>
+      </div>
+
+      <div class="arch-body">
+        <div class="arch-columns">
+          
+          <!-- Column 1: Physical Layer -->
+          <div class="arch-col">
+            <div class="col-title">Industrial Equipment<br>(Physical Layer)</div>
+            <div class="box-group">
+              <div class="arch-box">
+                <div class="arch-box-title">Machine 1</div>
+                <div class="arch-box-desc">(Primary Exhaust Fan)</div>
+              </div>
+              <div class="arch-box">
+                <div class="arch-box-title">Machine 2</div>
+                <div class="arch-box-desc">(Coolant Pump)</div>
+              </div>
+              <div class="arch-box">
+                <div class="arch-box-title">Machine 3</div>
+                <div class="arch-box-desc">(Linear Rail Slider)</div>
+              </div>
+              <div class="arch-box">
+                <div class="arch-box-title">Machine N</div>
+                <div class="arch-box-desc">(Control Valve)</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Column 2: Data Acquisition -->
+          <div class="arch-col">
+            <div class="col-title">Data Acquisition &<br>Preprocessing</div>
+            <div class="box-group">
+              <div class="arch-box">
+                <div class="arch-box-title">Audio Capture</div>
+                <div class="arch-box-desc">(Microphone / Sensor)</div>
+              </div>
+              <div class="arch-box">
+                <div class="arch-box-title">Noise Reduction & Filtering</div>
+                <div class="arch-box-desc">(Librosa Audio DSP)</div>
+              </div>
+              <div class="arch-box">
+                <div class="arch-box-title">Audio Segmentation</div>
+                <div class="arch-box-desc">(Fixed Time Windowing)</div>
+              </div>
+              <div class="arch-box">
+                <div class="arch-box-title">Feature Extraction</div>
+                <div class="arch-box-desc">(Log-Mel Spectrogram)</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Column 3: AI/ML Analysis -->
+          <div class="arch-col">
+            <div class="col-title">AI/ML Analysis<br>(Deep Autoencoder)</div>
+            <div class="box-group">
+              <div class="arch-box">
+                <div class="arch-box-title">Trained Autoencoder</div>
+                <div class="arch-box-desc">(Normal vs Anomaly)</div>
+              </div>
+              <div class="arch-box">
+                <div class="arch-box-title">Fault Classification</div>
+                <div class="arch-box-desc">(Section 00 / 01 / 02)</div>
+              </div>
+              <div class="arch-box">
+                <div class="arch-box-title">Severity Assessment</div>
+                <div class="arch-box-desc">(Normal / Warning / Critical)</div>
+              </div>
+              <div class="arch-box">
+                <div class="arch-box-title">Machine Risk Score</div>
+                <div class="arch-box-desc">(Health Index %)</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Column 4: Agentic AI Module -->
+          <div class="arch-col">
+            <div class="col-title">Agentic AI Module<br>(10-Agent System)</div>
+            <div class="box-group">
+              <div class="arch-box">
+                <div class="arch-box-title">Interpret Model Results</div>
+              </div>
+              <div class="arch-box">
+                <div class="arch-box-title">Generate Recommendations</div>
+              </div>
+              <div class="arch-box">
+                <div class="arch-box-title">Identify Spare Parts</div>
+              </div>
+              <div class="arch-box">
+                <div class="arch-box-title">Create Maintenance Ticket</div>
+              </div>
+              <div class="arch-box">
+                <div class="arch-box-title">Assign Field Technician</div>
+              </div>
+              <div class="arch-box">
+                <div class="arch-box-title">Track & Verify Repair</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Column 5: Application Layer -->
+          <div class="arch-col">
+            <div class="col-title">Application Layer<br>(UI & Alerts)</div>
+            <div class="box-group" style="justify-content: center; gap: 16px;">
+              <div class="arch-box" style="padding: 12px 6px;">
+                <div class="arch-box-title" style="font-size: 12px;">Web Dashboard</div>
+                <div class="arch-box-desc">(Monitoring & Visual Analytics)</div>
+              </div>
+              <div class="arch-box" style="padding: 12px 6px;">
+                <div class="arch-box-title" style="font-size: 12px;">Notification Service</div>
+                <div class="arch-box-desc">(Telegram Bot / Email / WhatsApp)</div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Bottom: Data Storage Layer -->
+        <div class="storage-layer">
+          <div class="storage-title">Data Storage Layer (SQLAlchemy ORM + SQLite / PostgreSQL)</div>
+          <div class="storage-grid">
+            <div class="storage-box">
+              <div class="cylinder-icon"></div>
+              <div class="storage-text">
+                <div class="storage-box-title">Audio Data Storage</div>
+                <div class="storage-box-desc">(Raw WAV Clips & Mel Features)</div>
+              </div>
+            </div>
+            <div class="storage-box">
+              <div class="cylinder-icon"></div>
+              <div class="storage-text">
+                <div class="storage-box-title">Model Storage</div>
+                <div class="storage-box-desc">(Trained .keras Neural Nets)</div>
+              </div>
+            </div>
+            <div class="storage-box">
+              <div class="cylinder-icon"></div>
+              <div class="storage-text">
+                <div class="storage-box-title">Machine & Maintenance DB</div>
+                <div class="storage-box-desc">(Machines, Parts, Tickets)</div>
+              </div>
+            </div>
+            <div class="storage-box">
+              <div class="cylinder-icon"></div>
+              <div class="storage-text">
+                <div class="storage-box-title">Logs & Analytics</div>
+                <div class="storage-box-desc">(Audit Logs, RAG Manual Docs)</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- RIGHT CARD: SYSTEM WORKFLOW -->
+    <div class="card">
+      <div class="card-header">
+        <h2>System Workflow</h2>
+        <p>AI-Agent Based Intelligent Predictive Maintenance System Using Machine Sound Analysis</p>
+      </div>
+
+      <div class="workflow-body">
+        
+        <!-- Step 1 -->
+        <div class="step-item">
+          <div class="step-num">1</div>
+          <div class="step-content">
+            <div class="step-header">Sound Acquisition</div>
+            <ul class="step-bullets">
+              <li>Microphone / Acoustic sensor captures real-time machine operating sound</li>
+              <li>Continuous 16kHz audio stream from industrial machinery (Fan, Pump, Slider, Valve)</li>
+            </ul>
+          </div>
+        </div>
+        <div class="step-arrow">▼</div>
+
+        <!-- Step 2 -->
+        <div class="step-item">
+          <div class="step-num">2</div>
+          <div class="step-content">
+            <div class="step-header">Preprocessing</div>
+            <ul class="step-bullets">
+              <li>Noise reduction and DSP signal filtering</li>
+              <li>Segment audio into fixed time windows</li>
+              <li>Convert audio into 128-band Log-Mel Spectrogram feature matrices</li>
+            </ul>
+          </div>
+        </div>
+        <div class="step-arrow">▼</div>
+
+        <!-- Step 3 -->
+        <div class="step-item">
+          <div class="step-num">3</div>
+          <div class="step-content">
+            <div class="step-header">Fault Detection (AI/ML)</div>
+            <ul class="step-bullets">
+              <li>Use trained Deep Autoencoders to calculate MSE reconstruction error (Normal vs Abnormal)</li>
+              <li>Identify faulty section (Section 00 / 01 / 02 component scan grid)</li>
+              <li>Assess severity level (Normal / Warning / Critical Alert)</li>
+            </ul>
+          </div>
+        </div>
+        <div class="step-arrow">▼</div>
+
+        <!-- Step 4 -->
+        <div class="step-item">
+          <div class="step-num">4</div>
+          <div class="step-content">
+            <div class="step-header">Agentic AI Processing</div>
+            <ul class="step-bullets">
+              <li>Interpret neural network detection scores and evaluate machine risk %</li>
+              <li>Generate AI-driven maintenance recommendations and RAG manual guidance</li>
+              <li>Identify required spare parts stock & generate work order ticket for field technician</li>
+            </ul>
+          </div>
+        </div>
+        <div class="step-arrow">▼</div>
+
+        <!-- Step 5 -->
+        <div class="step-item">
+          <div class="step-num">5</div>
+          <div class="step-content">
+            <div class="step-header">Alert & Notification</div>
+            <ul class="step-bullets">
+              <li>Send real-time telemetry updates via WebSockets to React Web Dashboard</li>
+              <li>Dispatch instant alerts to Telegram Bot with interactive telemetry & Kanban buttons</li>
+              <li>Include fault root cause, severity score, and recommended corrective action</li>
+            </ul>
+          </div>
+        </div>
+        <div class="step-arrow">▼</div>
+
+        <!-- Step 6 -->
+        <div class="step-item">
+          <div class="step-num">6</div>
+          <div class="step-content">
+            <div class="step-header">Maintenance Workflow</div>
+            <ul class="step-bullets">
+              <li>Certified technician receives notification and reviews work order details</li>
+              <li>Performs physical inspection, bearing lubrication, or component replacement</li>
+              <li>Updates ticket status (In Progress / Resolved) and logs repair feedback notes</li>
+            </ul>
+          </div>
+        </div>
+        <div class="step-arrow">▼</div>
+
+        <!-- Step 7 -->
+        <div class="step-item">
+          <div class="step-num">7</div>
+          <div class="step-content">
+            <div class="step-header">Monitoring & Analytics</div>
+            <ul class="step-bullets">
+              <li>Continuous 24/7 post-repair acoustic verification & health index monitoring</li>
+              <li>Track machine health trends, downtime reduction, and MTTR performance</li>
+              <li>Generate automated visual analytics reports for plant management decision making</li>
+            </ul>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+
+</body>
+</html>
