@@ -63,7 +63,7 @@
     }
     .arch-columns {
       display: grid;
-      grid-template-columns: 0.9fr 1.1fr 1fr 1.1fr 1fr;
+      grid-template-columns: 0.9fr 1.1fr 1fr 1.1fr 1.1fr;
       gap: 10px;
       flex: 1;
       position: relative;
@@ -115,12 +115,25 @@
       margin-top: 2px;
     }
 
-    /* Connection Arrows between columns */
-    .arrow-right {
-      position: absolute;
-      font-size: 14px;
-      color: #64748b;
-      font-weight: bold;
+    /* Output Channel Highlights */
+    .output-box {
+      background: #f0f9ff;
+      border: 1.5px solid #0284c7;
+      border-radius: 6px;
+      padding: 6px 4px;
+      text-align: center;
+      box-shadow: 0 2px 4px rgba(2, 132, 199, 0.1);
+    }
+    .output-badge {
+      display: inline-block;
+      background-color: #0284c7;
+      color: #ffffff;
+      font-size: 8.5px;
+      font-weight: 800;
+      padding: 1px 5px;
+      border-radius: 4px;
+      margin-bottom: 3px;
+      text-transform: uppercase;
     }
 
     /* Storage Layer Bottom Box */
@@ -354,18 +367,32 @@
             </div>
           </div>
 
-          <!-- Column 5: Application Layer -->
-          <div class="arch-col">
-            <div class="col-title">Application Layer<br>(UI & Alerts)</div>
-            <div class="box-group" style="justify-content: center; gap: 16px;">
-              <div class="arch-box" style="padding: 12px 6px;">
-                <div class="arch-box-title" style="font-size: 12px;">Web Dashboard</div>
-                <div class="arch-box-desc">(Monitoring & Visual Analytics)</div>
+          <!-- Column 5: Application Layer (3 Core Outputs) -->
+          <div class="arch-col" style="border-color: #0284c7; background-color: #f0f9ff;">
+            <div class="col-title" style="color: #0369a1;">Application & Outputs<br>(3 Core Channels)</div>
+            <div class="box-group" style="justify-content: space-around; gap: 8px;">
+              
+              <!-- Output 1 -->
+              <div class="output-box">
+                <div class="output-badge">Output 1</div>
+                <div class="arch-box-title" style="font-size: 10.5px;">Interactive Web Dashboard</div>
+                <div class="arch-box-desc">(Spectrograms, Component Scanning Grid & Visual Analytics)</div>
               </div>
-              <div class="arch-box" style="padding: 12px 6px;">
-                <div class="arch-box-title" style="font-size: 12px;">Notification Service</div>
-                <div class="arch-box-desc">(Telegram Bot / Email / WhatsApp)</div>
+
+              <!-- Output 2 -->
+              <div class="output-box">
+                <div class="output-badge" style="background-color: #d97706;">Output 2</div>
+                <div class="arch-box-title" style="font-size: 10.5px;">Telegram Instant Alert</div>
+                <div class="arch-box-desc">(Anomaly & Risky Status to Floor Manager with Action Buttons)</div>
               </div>
+
+              <!-- Output 3 -->
+              <div class="output-box">
+                <div class="output-badge" style="background-color: #4f46e5;">Output 3</div>
+                <div class="arch-box-title" style="font-size: 10.5px;">Service Request Mail RFP</div>
+                <div class="arch-box-desc">(Auto RFP Email Dispatch to Service Center Members & OEM Team)</div>
+              </div>
+
             </div>
           </div>
 
@@ -473,29 +500,27 @@
         </div>
         <div class="step-arrow">▼</div>
 
-        <!-- Step 5 -->
+        <!-- Step 5 (OUTPUT 1 & OUTPUT 2) -->
         <div class="step-item">
-          <div class="step-num">5</div>
-          <div class="step-content">
-            <div class="step-header">Alert & Notification</div>
+          <div class="step-num" style="background-color: #0284c7;">5</div>
+          <div class="step-content" style="border-color: #0284c7; background-color: #f0f9ff;">
+            <div class="step-header" style="color: #0369a1;">Alert & Telegram Push (Floor Manager) — [Outputs 1 & 2]</div>
             <ul class="step-bullets">
-              <li>Send real-time telemetry updates via WebSockets to React Web Dashboard</li>
-              <li>Dispatch instant alerts to Telegram Bot with interactive telemetry & Kanban buttons</li>
-              <li>Include fault root cause, severity score, and recommended corrective action</li>
+              <li><strong>Output 1 (Website)</strong>: Render real-time telemetry, spectrograms & scan grid on Web Dashboard</li>
+              <li><strong>Output 2 (Telegram Alert)</strong>: Dispatch instant push notification to <strong>Plant Floor Manager</strong> via Telegram Bot API when anomaly score exceeds threshold with interactive buttons</li>
             </ul>
           </div>
         </div>
         <div class="step-arrow">▼</div>
 
-        <!-- Step 6 -->
+        <!-- Step 6 (OUTPUT 3) -->
         <div class="step-item">
-          <div class="step-num">6</div>
-          <div class="step-content">
-            <div class="step-header">Maintenance Workflow</div>
+          <div class="step-num" style="background-color: #4f46e5;">6</div>
+          <div class="step-content" style="border-color: #6366f1; background-color: #f5f3ff;">
+            <div class="step-header" style="color: #4338ca;">Service Request Email & Maintenance Workflow — [Output 3]</div>
             <ul class="step-bullets">
-              <li>Certified technician receives notification and reviews work order details</li>
-              <li>Performs physical inspection, bearing lubrication, or component replacement</li>
-              <li>Updates ticket status (In Progress / Resolved) and logs repair feedback notes</li>
+              <li><strong>Output 3 (Service Request Email)</strong>: Auto-dispatch official Service Request (RFP) via <strong>Email</strong> to respective service center members & OEM manufacturer team</li>
+              <li>Field technician reviews work order, performs physical repair, and submits post-repair feedback</li>
             </ul>
           </div>
         </div>
