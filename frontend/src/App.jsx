@@ -134,7 +134,7 @@ export default function App() {
         rolesMap={rolesMap}
       />
 
-      <div className="flex-1 flex overflow-hidden">
+      <div className="flex-1 flex overflow-hidden min-h-[calc(100vh-4rem)]">
         {/* Collapsible Sidebar */}
         <Sidebar
           currentTab={currentTab}

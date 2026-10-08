@@ -54,7 +54,7 @@ export default function Sidebar({
       )}
 
       <aside className={`
-        fixed md:static top-16 bottom-0 left-0 z-40
+        fixed md:sticky top-16 left-0 z-30 h-[calc(100vh-4rem)] flex-shrink-0
         bg-dark-800/95 border-r border-slate-800/80
         flex flex-col justify-between transition-all duration-300 ease-in-out
         ${isCollapsed ? 'w-20' : 'w-64'}
